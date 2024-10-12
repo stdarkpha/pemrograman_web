@@ -19,7 +19,7 @@
                 <li><a>Item 3</a></li>
             </ul>
         </div>
-        <a class="btn btn-ghost text-xl">FarPortal</a>
+        <a href="index.php?page=home" class="btn btn-ghost text-xl">FarPortal</a>
     </div>
     <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal gap-2 px-1">
@@ -30,7 +30,7 @@
         </ul>
     </div>
     <div class="navbar-end">
-        <div class="dropdown dropdown-end">
+        <!-- <div class="dropdown dropdown-end">
             <div tabindex="0" role="button" class="btn btn-ghost">
                 <div class="avatar placeholder">
                     <div class="bg-neutral text-neutral-content w-8 rounded-full">
@@ -43,7 +43,28 @@
                 <li><a>Edit Profile</a></li>
                 <li><a>Logout</a></li>
             </ul>
-        </div>
-
+        </div> -->
+        <label class="flex cursor-pointer gap-2 px-4">
+            <span class="label-text">Dark</span>
+            <input id="theme" type="checkbox" value="light" class="toggle theme-controller" />
+            <span class="label-text">Light</span>
+        </label>
     </div>
 </div>
+
+<script>
+    const theme = localStorage.getItem('theme');
+
+    if (theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        document.getElementById('theme').checked = theme === 'light';
+        localStorage.setItem('theme', theme);
+    }
+
+    const themeController = document.querySelector('#theme');
+    themeController.addEventListener('change', () => {
+        const theme = themeController.checked ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+    });
+</script>

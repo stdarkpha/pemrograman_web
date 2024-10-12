@@ -1,4 +1,4 @@
-<div class="max-w-sm mx-auto my-8 prose">
+<div class="max-w-sm mx-auto py-16">
     <?php if (isset($_POST['email']) && isset($_POST['phone']) && isset($_POST['message'])): ?>
         <?php
         $email = $_POST['email'];
@@ -7,18 +7,18 @@
         ?>
         <div class="text-center">
 
-            <h2>Thank you for Contacting us!</h2>
-            <p class="text-neutral-content">Here is the information you submitted:</p>
+            <h1 class="text-2xl font-semibold">Thank you for Contacting us!</h1>
+            <p class="mb-4">Here is the information you submitted:</p>
             <ul class="text-left">
                 <li>Email: <?= $email ?></li>
                 <li>Phone: <?= $phone ?></li>
                 <li>Message: <?= $message ?></li>
             </ul>
         </div>
-        <a href="index.php?page=contact" class="btn btn-primary">Back</a>
+        <a href="index.php?page=contact" class="w-full mt-8 btn btn-primary">Back</a>
     <?php else: ?>
-        <h1>Contact Us</h1>
-        <p class="text-neutral-content">Fill out the form below to contact us.</p>
+        <h1 class="text-2xl font-semibold">Contact Us</h1>
+        <p class="mb-4">Fill out the form below to contact us.</p>
         <form method="POST" action="index.php?page=contact" class="flex flex-col gap-4">
             <label class="input input-bordered flex items-center gap-2">
 

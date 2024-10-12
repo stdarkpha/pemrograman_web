@@ -5,8 +5,5 @@
   },
   "scripts": {
     "dev": "npx tailwindcss -i ./css/render.css -o ./css/style.css --watch"
-  },
-  "dependencies": {
-    "@tailwindcss/typography": "github:tailwindcss/typography"
   }
 }
