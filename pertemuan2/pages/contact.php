@@ -1,5 +1,46 @@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <div class="max-w-screen-sm mx-auto py-16">
     <?php if (isset($_POST['submit'])): ?>
+        <?php
+        // define variable
+        $name = $_POST['name'] ?? '';
+        $phone = $_POST['phone'] ?? '';;
+        $birth = $_POST['birth'] ?? '';;
+        $gender = $_POST['gender'] ?? '';;
+        $hobby =  isset($_POST['hobby']) ? implode(', ', $_POST['hobby']) : '';
+        $message = $_POST['message'] ?? '';
+
+        include 'utils/connection.php';
+
+        $sql = "INSERT INTO contact (name, phone, birth, gender, hobby, message) VALUES ('$name', '$phone', '$birth', '$gender', '$hobby', '$message')";
+
+        if ($conn->query($sql) === TRUE) {
+            // swal success
+            echo "<script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: 'Data berhasil disimpan',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            </script>";
+        } else {
+            // swal error
+            echo "<script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal',
+                    text: 'Data gagal disimpan',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            </script>";
+        }
+
+        $conn->close();
+
+        ?>
         <div class="text-center">
             <h1 class="text-2xl font-semibold">
                 Terima kasih <?= $_POST['name'] ?>! Telah menghubungi saya.
@@ -12,7 +53,19 @@
                 <li>Telepon: <?= $_POST['phone'] ?? '' ?></li>
                 <li>Tanggal Lahir: <?= $_POST['birth'] ?? '' ?></li>
                 <li>Jenis Kelamin: <?= $_POST['gender'] ?? '' ?></li>
-                <li>Hobby: <?= isset($_POST['hobby']) ? implode(', ', (array)$_POST['hobby']) : '' ?></li>
+                <li class="capitalize">Hobby:
+                    <?php
+                    if (isset($_POST['hobby'])) {
+                        $hobbies = (array)$_POST['hobby'];
+                        $lastHobby = array_pop($hobbies);
+                        echo implode(', ', $hobbies);
+                        if (!empty($hobbies)) {
+                            echo ', dan ';
+                        }
+                        echo $lastHobby;
+                    }
+                    ?>
+                </li>
                 <li>Pesan: <?= $_POST['message'] ?></li>
             </ul>
         </div>
@@ -43,11 +96,11 @@
                 <div class="w-full">
                     <p class="mb-2">Jenis Kelamin</p>
                     <div class="flex items-center gap-4">
-                        <label class="flex items-center gap-2">
+                        <label class="cursor-pointer flex items-center gap-2">
                             <input type="radio" name="gender" value="laki-laki" class="radio w-4 h-4" />
                             <span>Laki-Laki</span>
                         </label>
-                        <label class="flex items-center gap-2">
+                        <label class="cursor-pointer flex items-center gap-2">
                             <input type="radio" name="gender" value="perempuan" class="radio w-4 h-4" />
                             <span>Perempuan</span>
                         </label>
@@ -56,15 +109,15 @@
                 <div class="w-full">
                     <p class="mb-2">Pilih Hobby</p>
                     <div class="flex gap-4">
-                        <label class="flex items-center gap-2">
+                        <label class="cursor-pointer flex items-center gap-2">
                             <input type="checkbox" name="hobby[]" class="checkbox w-4 h-4" value="lari" />
                             <span>Lari</span>
                         </label>
-                        <label class="flex items-center gap-2">
+                        <label class="cursor-pointer flex items-center gap-2">
                             <input type="checkbox" name="hobby[]" class="checkbox w-4 h-4" value="renang" />
                             <span>Renang</span>
                         </label>
-                        <label class="flex items-center gap-2">
+                        <label class="cursor-pointer flex items-center gap-2">
                             <input type="checkbox" name="hobby[]" class="checkbox w-4 h-4" value="makan" />
                             <span>Makan</span>
                         </label>
