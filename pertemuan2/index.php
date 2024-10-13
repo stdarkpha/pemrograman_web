@@ -22,7 +22,7 @@
             echo "<h1>404 - News Not Found</h1>";
         }
     } else {
-        $allowed_pages = ['home', 'about', 'news', 'contact', 'submit'];
+        $allowed_pages = ['home', 'about', 'news', 'survey', 'submit'];
         if (in_array($page, $allowed_pages)) {
             include('pages/' . $page . '.php');
         } else {

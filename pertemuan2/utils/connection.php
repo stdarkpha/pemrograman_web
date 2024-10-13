@@ -1,8 +1,8 @@
 <?php
-$servername = "127.0.0.1:3306";
+$servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "web_data";
+$dbname = "portal";
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
@@ -10,7 +10,9 @@ try {
     $conn = new mysqli($servername, $username, $password, $dbname);
 } catch (mysqli_sql_exception $e) {
     // swal error
-    echo "<script>
+    echo `
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
             Swal.fire({
                 icon: 'error',
                 title: 'Gagal',
@@ -22,7 +24,7 @@ try {
             setTimeout(() => {
                 window.location.href = 'index.php?page=contact';
             }, 2000);
-        </script>";
+        </script>`;
     // redirect to contact page
     die();
 }
